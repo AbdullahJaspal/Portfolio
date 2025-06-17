@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -19,9 +19,12 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  useDisclosure,
+  List,
+  ListItem,
+  ListIcon,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import {
   SiReact,
   SiTypescript,
@@ -40,13 +43,40 @@ import {
   SiIos,
 } from "react-icons/si";
 import { localImages } from "../assets/index.ts";
+import type { IconType } from "react-icons";
+import { FaCheckCircle } from "react-icons/fa";
 
 const MotionBox = motion(Box);
+
+interface Technology {
+  name: string;
+  icon: IconType;
+  color: string;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: Technology[];
+  features: string[];
+  github: string;
+  live: string;
+  role: string;
+  category: string;
+  status: string;
+}
 
 const Projects = () => {
   const textColor = useColorModeValue("gray.400", "gray.300");
   const cardBg = useColorModeValue("gray.800", "gray.700");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    onOpen();
+  };
 
   const projects = [
     {
@@ -319,134 +349,112 @@ const Projects = () => {
   ];
 
   return (
-    <Box id="projects" py={24} bg="gray.900">
+    <Box id="projects" py={20} bg="gray.900">
       <Container maxW="1400px">
-        <VStack spacing={16}>
-          <VStack spacing={6} textAlign="center">
-            <Heading
-              as="h2"
-              size="2xl"
-              bgGradient="linear(to-r, brand.500, accent.500)"
-              bgClip="text"
-            >
-              Featured Projects
-            </Heading>
-            <Text fontSize="lg" color={textColor} maxW="800px">
-              Explore my mobile apps showcasing innovative solutions and modern
-              technologies.
-            </Text>
-          </VStack>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} w="100%">
+        <VStack spacing={12} align="stretch">
+          <Heading
+            as="h2"
+            size="2xl"
+            textAlign="center"
+            bgGradient="linear(to-r, brand.500, accent.500)"
+            bgClip="text"
+          >
+            My Projects
+          </Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
             {projects.map((project, index) => (
               <MotionBox
                 key={index}
-                bg={cardBg}
-                borderRadius="xl"
-                overflow="hidden"
-                boxShadow="lg"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                _hover={{ transform: "translateY(-8px)", boxShadow: "2xl" }}
-                cursor="pointer"
-                onClick={() => setSelectedProject(project)}
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.3 }}
               >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  w="100%"
-                  h="200px"
-                  objectFit="contain"
-                />
-                <VStack p={6} spacing={4} align="stretch">
-                  <Heading size="md" color="white">
-                    {project.title}
-                  </Heading>
-                  <Text color={textColor} fontSize="sm" noOfLines={2}>
-                    {project.description}
-                  </Text>
-                  <HStack wrap="wrap" spacing={2}>
-                    {project.technologies.map((tech, techIndex) => (
-                      <Tag
-                        key={techIndex}
-                        size="sm"
-                        borderRadius="full"
-                        variant="subtle"
-                        colorScheme="gray"
-                      >
-                        <Icon as={tech.icon} color={tech.color} mr={1} />
-                        <TagLabel>{tech.name}</TagLabel>
-                      </Tag>
-                    ))}
-                  </HStack>
-                </VStack>
+                <Box
+                  bg={cardBg}
+                  borderRadius="lg"
+                  overflow="hidden"
+                  cursor="pointer"
+                  onClick={() => handleProjectClick(project)}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    w="100%"
+                    h="200px"
+                    objectFit="contain"
+                  />
+                  <VStack p={6} spacing={4} align="stretch">
+                    <Heading size="md" color="white">
+                      {project.title}
+                    </Heading>
+                    <Text color={textColor} fontSize="sm" noOfLines={2}>
+                      {project.description}
+                    </Text>
+                    <HStack wrap="wrap" spacing={2}>
+                      {project.technologies.map((tech, techIndex) => (
+                        <Tag
+                          key={techIndex}
+                          size="sm"
+                          borderRadius="full"
+                          variant="subtle"
+                          colorScheme="gray"
+                        >
+                          <Icon as={tech.icon} color={tech.color} mr={1} />
+                          <TagLabel>{tech.name}</TagLabel>
+                        </Tag>
+                      ))}
+                    </HStack>
+                  </VStack>
+                </Box>
               </MotionBox>
             ))}
           </SimpleGrid>
         </VStack>
       </Container>
 
-      {selectedProject && (
-        <Modal
-          isOpen={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-          size="xl"
-        >
-          <ModalOverlay />
-          <ModalContent bg={cardBg}>
-            <ModalHeader color="white">{selectedProject.title}</ModalHeader>
-            <ModalCloseButton color="white" />
-            <ModalBody pb={6}>
-              <Image
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                w="100%"
-                h="200px"
-                objectFit="contain"
-                borderRadius="md"
-              />
-              <Text color={textColor} mt={4}>
-                {selectedProject.description}
-              </Text>
-              <Box mt={4}>
-                <Text fontWeight="bold" color="white">
-                  Key Features
-                </Text>
-                <VStack align="start" spacing={2} mt={2}>
-                  {selectedProject.features.map((feature, idx) => (
-                    <HStack key={idx}>
-                      <Box w={2} h={2} bg="brand.500" borderRadius="full" />
-                      <Text color={textColor} fontSize="sm">
-                        {feature}
-                      </Text>
-                    </HStack>
-                  ))}
-                </VStack>
-              </Box>
-              <HStack mt={4} spacing={4}>
-                <Button
-                  as="a"
-                  href={selectedProject.github}
-                  target="_blank"
-                  leftIcon={<FaGithub />}
-                  colorScheme="brand"
-                >
-                  GitHub
-                </Button>
-                <Button
-                  as="a"
-                  href={selectedProject.live}
-                  target="_blank"
-                  leftIcon={<FaExternalLinkAlt />}
-                  variant="outline"
-                >
-                  Live
-                </Button>
-              </HStack>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
+      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+        <ModalOverlay />
+        <ModalContent bg={cardBg}>
+          <ModalHeader color="white">{selectedProject?.title}</ModalHeader>
+          <ModalCloseButton color="white" />
+          <ModalBody pb={6}>
+            <Image
+              src={selectedProject?.image}
+              alt={selectedProject?.title}
+              borderRadius="lg"
+              mb={4}
+            />
+            <Text color={textColor} mb={4}>
+              {selectedProject?.description}
+            </Text>
+            <List spacing={3} mb={4}>
+              {selectedProject?.features.map((feature, idx) => (
+                <ListItem key={idx} color={textColor}>
+                  <ListIcon as={FaCheckCircle} color="brand.500" />
+                  {feature}
+                </ListItem>
+              ))}
+            </List>
+            <HStack spacing={4}>
+              <Button
+                as="a"
+                href={selectedProject?.github}
+                target="_blank"
+                colorScheme="blue"
+              >
+                View Code
+              </Button>
+              <Button
+                as="a"
+                href={selectedProject?.live}
+                target="_blank"
+                variant="outline"
+              >
+                Live Demo
+              </Button>
+            </HStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

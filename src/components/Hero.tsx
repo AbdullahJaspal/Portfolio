@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from "react";
 import {
   Box,
   Container,
@@ -23,6 +22,7 @@ import {
 import Typed from "typed.js";
 import myImage from "../assets/myImage.png";
 import resume from "../assets/Abdullah Jaspal(Senior Software Engineer) (1).pdf";
+import { useEffect, useRef } from "react";
 
 const MotionBox = motion(Box);
 

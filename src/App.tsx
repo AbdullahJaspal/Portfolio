@@ -1,4 +1,3 @@
-import React from "react";
 import { ChakraProvider, Box, extendTheme } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
