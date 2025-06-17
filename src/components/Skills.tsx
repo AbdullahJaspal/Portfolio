@@ -68,7 +68,7 @@ const Skills = () => {
             </Text>
           </VStack>
           <SimpleGrid
-            columns={{ base: 1, md: 3 }}
+            columns={{ base: 1, lg: 3 }}
             spacing={{ base: 6, md: 8 }}
             w="100%"
           >
@@ -88,7 +88,7 @@ const Skills = () => {
                     {skillGroup.category}
                   </Heading>
                   <SimpleGrid
-                    columns={{ base: 1, sm: 2 }}
+                    columns={{ base: 2 }}
                     spacing={{ base: 4, md: 6 }}
                   >
                     {skillGroup.items.map((skill, skillIndex) => (
