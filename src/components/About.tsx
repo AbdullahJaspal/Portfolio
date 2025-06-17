@@ -4,9 +4,9 @@ import {
   Heading,
   Text,
   VStack,
-  HStack,
   Icon,
   useColorModeValue,
+  Stack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FaCode, FaLaptopCode, FaMobileAlt } from "react-icons/fa";
@@ -39,36 +39,40 @@ const About = () => {
   ];
 
   return (
-    <Box id="about" py={24} bg="gray.900">
-      <Container maxW="1400px">
-        <VStack spacing={16}>
-          <VStack spacing={6} textAlign="center">
+    <Box id="about" py={{ base: 16, md: 24 }} bg="gray.900">
+      <Container maxW="1400px" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 12, md: 16 }}>
+          <VStack spacing={{ base: 4, md: 6 }} textAlign="center">
             <Heading
               as="h2"
-              size="2xl"
+              size={{ base: "xl", md: "2xl" }}
               bgGradient="linear(to-r, brand.500, accent.500)"
               bgClip="text"
             >
               About Me
             </Heading>
-            <Text fontSize="lg" color={textColor} maxW="800px">
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={textColor}
+              maxW="800px"
+            >
               I'm a Mobile App Developer with over 5 years of experience in
               React Native, building high-performance apps for iOS and Android.
               I leverage TypeScript for scalable code and focus on delivering
               seamless UI/UX and optimized performance.
             </Text>
           </VStack>
-          <HStack
-            spacing={8}
+          <Stack
+            direction={{ base: "column", lg: "row" }}
+            spacing={{ base: 6, md: 8 }}
             align="stretch"
-            direction={{ base: "column", md: "row" }}
             w="100%"
           >
             {features.map((feature, index) => (
               <MotionBox
                 key={index}
                 flex={1}
-                p={8}
+                p={{ base: 6, md: 8 }}
                 bg={cardBg}
                 borderRadius="xl"
                 boxShadow="lg"
@@ -77,16 +81,23 @@ const About = () => {
                 transition={{ delay: index * 0.2 }}
                 _hover={{ transform: "translateY(-8px)" }}
               >
-                <VStack spacing={4} align="start">
-                  <Icon as={feature.icon} w={8} h={8} color="brand.500" />
-                  <Heading size="md" color="white">
+                <VStack spacing={{ base: 3, md: 4 }} align="start">
+                  <Icon
+                    as={feature.icon}
+                    w={{ base: 6, md: 8 }}
+                    h={{ base: 6, md: 8 }}
+                    color="brand.500"
+                  />
+                  <Heading size={{ base: "sm", md: "md" }} color="white">
                     {feature.title}
                   </Heading>
-                  <Text color={textColor}>{feature.description}</Text>
+                  <Text color={textColor} fontSize={{ base: "sm", md: "md" }}>
+                    {feature.description}
+                  </Text>
                 </VStack>
               </MotionBox>
             ))}
-          </HStack>
+          </Stack>
         </VStack>
       </Container>
     </Box>

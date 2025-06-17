@@ -53,52 +53,94 @@ const Hero = () => {
       minH="100vh"
       display="flex"
       alignItems="center"
-      pt="80px"
+      pt={{ base: "120px", md: "80px" }}
       bg="gray.900"
       position="relative"
       overflow="hidden"
     >
-      <Container maxW="1400px">
+      <Container maxW="1400px" px={{ base: 4, md: 6 }}>
         <Flex
           direction={{ base: "column", md: "row" }}
           align="center"
           justify="space-between"
-          gap={12}
+          gap={{ base: 8, md: 12 }}
           position="relative"
           zIndex={1}
         >
-          <VStack spacing={8} align={{ base: "center", md: "start" }} flex={1}>
-            <Text color={accentColor} fontWeight="bold" fontSize="lg">
+          <Box
+            display={{ base: "flex", md: "none" }}
+            justifyContent="center"
+            mb={{ base: 6, md: 0 }}
+            w="100%"
+          >
+            <Image
+              src={myImage}
+              alt="Profile"
+              borderRadius="full"
+              w="180px"
+              h="180px"
+              boxShadow="2xl"
+              bg="white"
+              p={2}
+            />
+          </Box>
+          <VStack
+            spacing={{ base: 6, md: 8 }}
+            align={{ base: "center", md: "start" }}
+            flex={1}
+          >
+            <Text
+              color={accentColor}
+              fontWeight="bold"
+              fontSize={{ base: "md", md: "lg" }}
+            >
               Hey, I'm
             </Text>
             <Heading
               as="h1"
-              size="3xl"
+              size={{ base: "2xl", md: "3xl" }}
               bgGradient="linear(to-r, brand.500, accent.500)"
               bgClip="text"
+              textAlign={{ base: "center", md: "left" }}
             >
               Abdullah Jaspal
             </Heading>
-            <Heading as="h2" size="xl" color={textColor}>
+            <Heading
+              as="h2"
+              size={{ base: "lg", md: "xl" }}
+              color={textColor}
+              textAlign={{ base: "center", md: "left" }}
+            >
               <span ref={el} />
             </Heading>
-            <Text fontSize="lg" color={textColor} maxW="600px">
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={textColor}
+              maxW="600px"
+              textAlign={{ base: "center", md: "left" }}
+            >
               Over 5 years of experience crafting high-performance mobile apps
               with React Native, TypeScript, and modern tools. I build
               intuitive, user-focused solutions for iOS and Android.
             </Text>
-            <HStack spacing={4}>
+            <HStack
+              spacing={4}
+              wrap={{ base: "wrap", md: "nowrap" }}
+              justify={{ base: "center", md: "flex-start" }}
+            >
               <Button
                 colorScheme="blue"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 onClick={() => (window.location.href = "#contact")}
+                w={{ base: "full", md: "auto" }}
               >
                 Get in Touch
               </Button>
               <Button
                 variant="outline"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 onClick={() => (window.location.href = "#projects")}
+                w={{ base: "full", md: "auto" }}
               >
                 View My Work
               </Button>
@@ -107,13 +149,18 @@ const Hero = () => {
                 href={resume}
                 download
                 variant="outline"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 leftIcon={<FaDownload />}
+                w={{ base: "full", md: "auto" }}
               >
                 Resume
               </Button>
             </HStack>
-            <HStack spacing={4}>
+            <HStack
+              spacing={4}
+              wrap="wrap"
+              justify={{ base: "center", md: "flex-start" }}
+            >
               <Button
                 as="a"
                 href="https://github.com/AbdullahJaspal"
@@ -121,6 +168,7 @@ const Hero = () => {
                 variant="ghost"
                 leftIcon={<FaGithub />}
                 color={textColor}
+                size={{ base: "sm", md: "md" }}
               >
                 GitHub
               </Button>
@@ -131,6 +179,7 @@ const Hero = () => {
                 variant="ghost"
                 leftIcon={<FaLinkedin />}
                 color={textColor}
+                size={{ base: "sm", md: "md" }}
               >
                 LinkedIn
               </Button>
@@ -141,6 +190,7 @@ const Hero = () => {
                 variant="ghost"
                 leftIcon={<FaStackOverflow />}
                 color={textColor}
+                size={{ base: "sm", md: "md" }}
               >
                 Stack Overflow
               </Button>
@@ -151,6 +201,7 @@ const Hero = () => {
                 variant="ghost"
                 leftIcon={<FaPatreon />}
                 color={textColor}
+                size={{ base: "sm", md: "md" }}
               >
                 Patreon
               </Button>
@@ -161,6 +212,7 @@ const Hero = () => {
                 variant="ghost"
                 leftIcon={<FaTwitter />}
                 color={textColor}
+                size={{ base: "sm", md: "md" }}
               >
                 X
               </Button>
@@ -171,6 +223,7 @@ const Hero = () => {
             position="relative"
             animate={{ y: [0, -20, 0] }}
             transition={{ repeat: Infinity, duration: 3 }}
+            display={{ base: "none", md: "block" }}
           >
             <Box
               position="absolute"

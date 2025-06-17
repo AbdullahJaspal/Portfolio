@@ -47,27 +47,35 @@ const Skills = () => {
   ];
 
   return (
-    <Box id="skills" py={24} bg="gray.900">
-      <Container maxW="1400px">
-        <VStack spacing={16}>
-          <VStack spacing={6} textAlign="center">
+    <Box id="skills" py={{ base: 16, md: 24 }} bg="gray.900">
+      <Container maxW="1400px" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 12, md: 16 }}>
+          <VStack spacing={{ base: 4, md: 6 }} textAlign="center">
             <Heading
               as="h2"
-              size="2xl"
+              size={{ base: "xl", md: "2xl" }}
               bgGradient="linear(to-r, brand.500, accent.500)"
               bgClip="text"
             >
               Skills & Expertise
             </Heading>
-            <Text fontSize="lg" color={textColor} maxW="800px">
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={textColor}
+              maxW="800px"
+            >
               Technologies and tools I use to create impactful mobile apps.
             </Text>
           </VStack>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} w="100%">
+          <SimpleGrid
+            columns={{ base: 1, md: 3 }}
+            spacing={{ base: 6, md: 8 }}
+            w="100%"
+          >
             {skills.map((skillGroup, index) => (
               <MotionBox
                 key={index}
-                p={8}
+                p={{ base: 6, md: 8 }}
                 bg={cardBg}
                 borderRadius="xl"
                 boxShadow="lg"
@@ -75,24 +83,33 @@ const Skills = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
               >
-                <VStack spacing={6} align="stretch">
-                  <Heading size="md" color="brand.500">
+                <VStack spacing={{ base: 4, md: 6 }} align="stretch">
+                  <Heading size={{ base: "sm", md: "md" }} color="brand.500">
                     {skillGroup.category}
                   </Heading>
-                  <SimpleGrid columns={2} spacing={4}>
+                  <SimpleGrid
+                    columns={{ base: 1, sm: 2 }}
+                    spacing={{ base: 4, md: 6 }}
+                  >
                     {skillGroup.items.map((skill, skillIndex) => (
                       <VStack key={skillIndex} align="center">
                         <CircularProgress
                           value={skill.level}
                           color="brand.500"
-                          size="80px"
+                          size={{ base: "60px", md: "80px" }}
                           thickness="8px"
                         >
-                          <CircularProgressLabel color="white">
+                          <CircularProgressLabel
+                            color="white"
+                            fontSize={{ base: "sm", md: "md" }}
+                          >
                             {skill.level}%
                           </CircularProgressLabel>
                         </CircularProgress>
-                        <Text fontSize="sm" color={textColor}>
+                        <Text
+                          fontSize={{ base: "xs", md: "sm" }}
+                          color={textColor}
+                        >
                           {skill.name}
                         </Text>
                       </VStack>

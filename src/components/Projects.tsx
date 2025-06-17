@@ -349,19 +349,32 @@ const Projects = () => {
   ];
 
   return (
-    <Box id="projects" py={20} bg="gray.900">
-      <Container maxW="1400px">
-        <VStack spacing={12} align="stretch">
-          <Heading
-            as="h2"
-            size="2xl"
-            textAlign="center"
-            bgGradient="linear(to-r, brand.500, accent.500)"
-            bgClip="text"
+    <Box id="projects" py={{ base: 16, md: 24 }} bg="gray.900">
+      <Container maxW="1400px" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 12, md: 16 }}>
+          <VStack spacing={{ base: 4, md: 6 }} textAlign="center">
+            <Heading
+              as="h2"
+              size={{ base: "xl", md: "2xl" }}
+              bgGradient="linear(to-r, brand.500, accent.500)"
+              bgClip="text"
+            >
+              My Projects
+            </Heading>
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={textColor}
+              maxW="800px"
+            >
+              Explore my mobile apps showcasing innovative solutions and modern
+              technologies.
+            </Text>
+          </VStack>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 8 }}
+            w="100%"
           >
-            My Projects
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
             {projects.map((project, index) => (
               <MotionBox
                 key={index}
@@ -379,27 +392,37 @@ const Projects = () => {
                     src={project.image}
                     alt={project.title}
                     w="100%"
-                    h="200px"
-                    objectFit="contain"
+                    h={{ base: "200px", md: "250px" }}
+                    objectFit="cover"
                   />
-                  <VStack p={6} spacing={4} align="stretch">
-                    <Heading size="md" color="white">
+                  <VStack
+                    p={{ base: 4, md: 6 }}
+                    spacing={{ base: 3, md: 4 }}
+                    align="stretch"
+                  >
+                    <Heading size={{ base: "sm", md: "md" }} color="white">
                       {project.title}
                     </Heading>
-                    <Text color={textColor} fontSize="sm" noOfLines={2}>
+                    <Text
+                      color={textColor}
+                      fontSize={{ base: "sm", md: "md" }}
+                      noOfLines={2}
+                    >
                       {project.description}
                     </Text>
                     <HStack wrap="wrap" spacing={2}>
                       {project.technologies.map((tech, techIndex) => (
                         <Tag
                           key={techIndex}
-                          size="sm"
+                          size={{ base: "sm", md: "md" }}
                           borderRadius="full"
                           variant="subtle"
                           colorScheme="gray"
                         >
                           <Icon as={tech.icon} color={tech.color} mr={1} />
-                          <TagLabel>{tech.name}</TagLabel>
+                          <TagLabel fontSize={{ base: "xs", md: "sm" }}>
+                            {tech.name}
+                          </TagLabel>
                         </Tag>
                       ))}
                     </HStack>
@@ -411,10 +434,16 @@ const Projects = () => {
         </VStack>
       </Container>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={{ base: "full", md: "4xl" }}
+      >
         <ModalOverlay />
-        <ModalContent bg={cardBg}>
-          <ModalHeader color="white">{selectedProject?.title}</ModalHeader>
+        <ModalContent bg={cardBg} mx={{ base: 4, md: 0 }}>
+          <ModalHeader color="white" fontSize={{ base: "lg", md: "xl" }}>
+            {selectedProject?.title}
+          </ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody pb={6}>
             <Image
@@ -422,24 +451,33 @@ const Projects = () => {
               alt={selectedProject?.title}
               borderRadius="lg"
               mb={4}
+              w="100%"
+              h={{ base: "200px", md: "300px" }}
+              objectFit="cover"
             />
-            <Text color={textColor} mb={4}>
+            <Text color={textColor} mb={4} fontSize={{ base: "sm", md: "md" }}>
               {selectedProject?.description}
             </Text>
             <List spacing={3} mb={4}>
               {selectedProject?.features.map((feature, idx) => (
-                <ListItem key={idx} color={textColor}>
+                <ListItem
+                  key={idx}
+                  color={textColor}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
                   <ListIcon as={FaCheckCircle} color="brand.500" />
                   {feature}
                 </ListItem>
               ))}
             </List>
-            <HStack spacing={4}>
+            <HStack spacing={4} wrap="wrap">
               <Button
                 as="a"
                 href={selectedProject?.github}
                 target="_blank"
                 colorScheme="blue"
+                size={{ base: "sm", md: "md" }}
+                w={{ base: "full", md: "auto" }}
               >
                 View Code
               </Button>
@@ -448,6 +486,8 @@ const Projects = () => {
                 href={selectedProject?.live}
                 target="_blank"
                 variant="outline"
+                size={{ base: "sm", md: "md" }}
+                w={{ base: "full", md: "auto" }}
               >
                 Live Demo
               </Button>

@@ -14,6 +14,7 @@ import {
   useToast,
   HStack,
   Icon,
+  Stack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
@@ -76,7 +77,7 @@ const Contact = () => {
               directly.
             </Text>
           </VStack>
-          <HStack
+          <Stack
             spacing={8}
             align="stretch"
             direction={{ base: "column", md: "row" }}
@@ -156,7 +157,7 @@ const Contact = () => {
                 </Button>
               </VStack>
             </MotionBox>
-          </HStack>
+          </Stack>
         </VStack>
       </Container>
     </Box>
